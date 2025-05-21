@@ -1,4 +1,4 @@
-import os
+ os
 import sys
 from openai import OpenAI
 from dotenv import load_dotenv
@@ -18,7 +18,7 @@ def main():
         print(f"\n## Review for: `{file}`\n")
 
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-3.5-turbo",
             messages=[
                 {
                     "role": "system",
