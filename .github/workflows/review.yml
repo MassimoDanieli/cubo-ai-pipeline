@@ -22,7 +22,6 @@ jobs:
 
     - name: Install dependencies
       run: pip install openai
-
     - name: Find changed files
       id: changes
       run: |
@@ -33,7 +32,6 @@ jobs:
        fi
        FILES=$(git diff --name-only $BASE HEAD | grep -E '\.html$|\.js$|\.py$' | tr '\n' ' ')
        echo "files=$FILES" >> "$GITHUB_OUTPUT"
-
     - name: Run ChatGPT review
       if: steps.changes.outputs.files != ''
       env:
