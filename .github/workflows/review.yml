@@ -26,7 +26,9 @@ jobs:
     - name: Find changed files
       id: changes
       run: |
-        echo "files=$(git diff --name-only origin/main...HEAD | grep -E '\.html$|\.js$|\.py$' | tr '\n' ' ')" >> "$GITHUB_OUTPUT"
+        FILES=$(git diff --name-only $(git merge-base HEAD HEAD~1) | grep -E '\.html$|\.js$|\.py$' | tr '\n' ' ')
+    echo "files=$FILES" >> "$GITHUB_OUTPUT"
+
 
     - name: Run ChatGPT review
       if: steps.changes.outputs.files != ''
