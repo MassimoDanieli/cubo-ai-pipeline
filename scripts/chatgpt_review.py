@@ -1,8 +1,11 @@
 import os
-import openai
 import sys
+from openai import OpenAI
+from dotenv import load_dotenv
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def read_file(filepath):
     with open(filepath, "r") as f:
@@ -13,22 +16,23 @@ def main():
     for file in files:
         content = read_file(file)
         print(f"\n## Review for: `{file}`\n")
-        response = openai.ChatCompletion.create(
+
+        response = client.chat.completions.create(
             model="gpt-4",
             messages=[
                 {
                     "role": "system",
-                    "content": "Sei un esperto sviluppatore. Fai una code review breve ma costruttiva di questo file HTML/JS/Python."
+                    "content": "Sei uno sviluppatore esperto. Fai una code review breve ma costruttiva del seguente file."
                 },
                 {
                     "role": "user",
-                    "content": f"File:\n\n{content}"
+                    "content": f"File: {file}\n\n{content}"
                 }
             ],
-            temperature=0.3,
-            max_tokens=800
+            temperature=0.3
         )
-        print(response["choices"][0]["message"]["content"])
+
+        print(response.choices[0].message.content)
         print("\n" + "="*80 + "\n")
 
 if __name__ == "__main__":

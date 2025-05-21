@@ -1,8 +1,11 @@
 import os
-import openai
 import subprocess
+from openai import OpenAI
+from dotenv import load_dotenv
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+load_dotenv()
+
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def get_commit_messages():
     result = subprocess.run(
@@ -13,22 +16,19 @@ def get_commit_messages():
     return result.stdout.strip()
 
 def generate_changelog(commits):
-    messages = [
-        {
-            "role": "system",
-            "content": "Sei uno sviluppatore DevOps. Genera un changelog leggibile e ordinato, breve ma informativo, da questi commit."
-        },
-        {
-            "role": "user",
-            "content": f"Commit recenti:\n\n{commits}"
-        }
-    ]
-
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
-        messages=messages,
-        temperature=0.3,
-        max_tokens=600
+        messages=[
+            {
+                "role": "system",
+                "content": "Sei uno sviluppatore DevOps. Genera un changelog leggibile, ordinato e professionale da questi commit:"
+            },
+            {
+                "role": "user",
+                "content": commits
+            }
+        ],
+        temperature=0.3
     )
     return response.choices[0].message.content
 
@@ -40,7 +40,6 @@ def main():
         f.write("# 📝 Changelog (generato automaticamente)\n\n")
         f.write(changelog)
 
-    print("✅ Changelog aggiornato.")
-
 if __name__ == "__main__":
     main()
+
