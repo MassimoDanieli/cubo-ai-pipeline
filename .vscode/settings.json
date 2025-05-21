@@ -1,0 +1,32 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // YAML
+  "yaml.validate": true,
+  "yaml.format.enable": true,
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///./.github/workflows/*"
+  },
+
+  // Python
+  "python.formatting.provider": "black",
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.mypyEnabled": true,
+  "python.linting.flake8Enabled": false,
+
+  // Prettier
+  "prettier.requireConfig": false,
+
+  // Git
+  "git.enableSmartCommit": true,
+  "git.confirmSync": false,
+
+  // Terminal integrato
+  "terminal.integrated.defaultProfile.linux": "bash"
+}
+
