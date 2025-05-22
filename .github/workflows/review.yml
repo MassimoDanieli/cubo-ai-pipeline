@@ -1,0 +1,46 @@
+name: Code Review con ChatGPT
+
+on:
+  pull_request:
+    paths:
+      - '**/*.html'
+      - '**/*.js'
+      - '**/*.py'
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install openai
+          pip install -r requirements.txt
+
+      - name: Find changed files
+        id: changes
+        run: |
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            BASE=$(git merge-base HEAD HEAD~1)
+          else
+            BASE=$(git hash-object -t tree /dev/null)
+          fi
+          FILES=$(git diff --name-only $BASE HEAD | grep -E '\.html$|\.js$|\.py$' | tr '\n' ' ')
+          echo "files=$FILES" >> "$GITHUB_OUTPUT"
+
+      - name: Run ChatGPT review
+        if: steps.changes.outputs.files != ''
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "Changed files: ${{ steps.changes.outputs.files }}"
+          python3 scripts/chatgpt_review.py ${{ steps.changes.outputs.files }}
+
