@@ -1,5 +1,5 @@
 # 📝 Changelog (generato automaticamente)
 
-## Changelog
+### Changelog
 
-- Fix: Aggiornata la funzione calcolaEDisegna in JS per renderla compatibile con GitHub Pages. (commit: 340218b)
+- **Fix**: Risolto il problema che causava il malfunzionamento della pagina index con lo script di calcolo. (c9936e5)
