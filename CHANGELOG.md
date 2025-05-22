@@ -1,3 +1,6 @@
 # 📝 Changelog (generato automaticamente)
 
-- Chore: Forza il deploy di GitHub Pages (c661894)
+### Changelog
+
+- **Documentazione**
+  - Aggiunta versione inglese della homepage e pagina tecnica. (commit: 718e7f0)
