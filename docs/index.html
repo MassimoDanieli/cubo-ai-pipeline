@@ -2,18 +2,49 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Volume del Cubo</title>
+  <title>Progetto GPT + CI/CD</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2rem;
+      background: #f7f7f7;
+      color: #333;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 1.5rem;
+      background: #007acc;
+      color: white;
+      padding: 0.75rem 1.25rem;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+    main {
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
-  <h1>Volume del Cubo</h1>
-  <input id="lato" type="number" placeholder="Inserisci il lato" />
-  <button onclick="calcolaEDisegna()">Calcola</button>
-  <div id="risultato"></div>
-
-  <script type="module">
-    import { calcolaEDisegna } from './scripts/main.js';
-    window.calcolaEDisegna = calcolaEDisegna;
-  </script>
+  <header>
+    <h1>Calcolo Volume di un Cubo</h1>
+    <p>Progetto dimostrativo con pipeline CI/CD, test Jest, e GPT per revisione automatica</p>
+  </header>
+  <main>
+    <p>Questo sito dimostra un'applicazione semplice con una pipeline avanzata integrata con:</p>
+    <ul>
+      <li>Test automatici con <strong>Jest</strong></li>
+      <li>Review del codice via <strong>ChatGPT</strong></li>
+      <li>Generazione automatica di <code>CHANGELOG.md</code></li>
+      <li>Deploy su <strong>GitHub Pages</strong></li>
+    </ul>
+    <a href="scripts/main.js" class="button">Vai al calcolatore</a>
+  </main>
 </body>
 </html>
 
