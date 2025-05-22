@@ -1,31 +1,18 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Volume del Cubo</title>
-  <style>
-    body { font-family: sans-serif; padding: 2rem; }
-    input, button { padding: 0.5rem; margin: 0.5rem 0; }
-  </style>
 </head>
 <body>
-  <h1>Calcolo del Volume di un Cubo</h1>
-  <p>Inserisci il lato del cubo (n):</p>
-  <input type="number" id="lato" placeholder="es. 5" />
-  <button onclick="calcola()">Calcola</button>
-  <p id="risultato"></p>
+  <h1>Volume del Cubo</h1>
+  <input id="lato" type="number" placeholder="Inserisci il lato" />
+  <button onclick="calcolaEDisegna()">Calcola</button>
+  <div id="risultato"></div>
 
-  <script>
-    function calcola() {
-      const n = parseFloat(document.getElementById('lato').value);
-      if (isNaN(n)) {
-        document.getElementById('risultato').innerText = "Inserisci un numero valido";
-        return;
-      }
-      const volume = Math.pow(n, 3);
-      document.getElementById('risultato').innerText = `Il volume è: ${volume}`;
-    }
+  <script type="module">
+    import { calcolaEDisegna } from './scripts/main.js';
+    window.calcolaEDisegna = calcolaEDisegna;
   </script>
 </body>
 </html>
