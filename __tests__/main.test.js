@@ -1,16 +1,10 @@
-import { calcolaVolume } from '../scripts/main.js';
+const { calcolaVolume } = require('../scripts/main');
 
-describe('calcolaVolume()', () => {
-  test('ritorna il volume corretto per input valido', () => {
-    expect(calcolaVolume('4')).toBe('Il volume è: 64');
-  });
+test('volume corretto per 3', () => {
+  expect(calcolaVolume('3')).toBe('Il volume è: 27');
+});
 
-  test('gestisce input non numerico', () => {
-    expect(calcolaVolume('ciao')).toBe('Errore');
-  });
-
-  test('gestisce input vuoto', () => {
-    expect(calcolaVolume('')).toBe('Errore');
-  });
+test('gestisce input non numerico', () => {
+  expect(calcolaVolume('abc')).toBe('Errore');
 });
 

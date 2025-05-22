@@ -1,12 +1,8 @@
-export function calcolaVolume(lato) {
-  const n = parseFloat(lato);
-  if (isNaN(n)) return 'Errore';
-  return `Il volume è: ${Math.pow(n, 3)}`;
+function calcolaVolume(input) {
+  const lato = parseFloat(input);
+  if (isNaN(lato) || lato < 0) return 'Errore';
+  return `Il volume è: ${Math.pow(lato, 3)}`;
 }
 
-export function calcolaEDisegna() {
-  const lato = document.getElementById('lato').value;
-  const output = calcolaVolume(lato);
-  document.getElementById('risultato').innerText = output;
-}
+module.exports = { calcolaVolume };
 
