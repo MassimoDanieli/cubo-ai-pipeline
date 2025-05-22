@@ -1,7 +1,3 @@
 # 📝 Changelog (generato automaticamente)
 
-```
-## Cambiamenti
-
-- Corretto il problema che causava errori nella generazione del changelog
-```
+- Merge pull request #2 from MassimoDanieli/feature/gpt-tests
