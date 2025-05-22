@@ -2,33 +2,63 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Volume del Cubo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo GPT DevOps – Volume Cubo</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
       padding: 2rem;
-      text-align: center;
+      background: #f4f4f4;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #222;
     }
     input, button {
       padding: 0.5rem;
-      font-size: 1.2rem;
-      margin: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .demo {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
     }
     #risultato {
       margin-top: 1rem;
-      font-size: 1.4rem;
-      color: #333;
+      font-weight: bold;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>Calcolo Volume di un Cubo</h1>
-  <p>Inserisci la lunghezza del lato (n):</p>
-  <input type="number" id="lato" placeholder="Es. 5" />
-  <button onclick="calcolaEDisegna()">Calcola</button>
-  <div id="risultato"></div>
+
+  <h1>Demo DevOps GPT-powered: Calcolo Volume di un Cubo</h1>
+
+  <p>Questo progetto dimostra come integrare automazione DevOps e Intelligenza Artificiale (OpenAI) anche in una semplice web app. È progettato per essere una demo didattica da mostrare in sede di colloquio o come portfolio tecnico.</p>
+
+  <h2>Demo interattiva</h2>
+  <div class="demo">
+    <label for="lato">Inserisci la lunghezza del lato del cubo:</label><br />
+    <input type="number" id="lato" placeholder="Es. 5" />
+    <button onclick="calcolaEDisegna()">Calcola</button>
+    <div id="risultato"></div>
+  </div>
+
+  <p style="margin-top: 2rem;">
+    <a href="tech.html">Approfondimento tecnico &rarr;</a>
+  </p>
 
   <script src="./scripts/main.js"></script>
 </body>
