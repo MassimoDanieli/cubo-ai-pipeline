@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Approfondimento Tecnico – Pipeline GPT</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+      background: #fefefe;
+      color: #222;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    code {
+      background: #eee;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Approfondimento Tecnico – Pipeline GPT</h1>
+
+  <p>Questa pagina descrive in dettaglio l'architettura, gli strumenti e le automazioni utilizzate nel progetto <strong>cubo-ai-pipeline</strong>.</p>
+
+  <h2>Obiettivo</h2>
+  <p>Dimostrare l'uso di una pipeline DevOps intelligente con integrazione GPT, anche per una semplice webapp. L'intero processo è automatizzato: revisione, testing, changelog e deploy.</p>
+
+  <h2>Struttura del progetto</h2>
+  <ul>
+    <li><strong>Frontend:</strong> HTML + JavaScript standalone</li>
+    <li><strong>Funzione:</strong> Calcolo volume di un cubo (<code>calcolaEDisegna()</code>)</li>
+    <li><strong>Deploy:</strong> GitHub Pages via cartella <code>/docs</code></li>
+  </ul>
+
+  <h2>Pipeline CI/CD</h2>
+  <ul>
+    <li><strong>GitHub Actions</strong> attiva su PR e push</li>
+    <li>Code review automatica GPT su ogni PR</li>
+    <li>Generazione automatica del file <code>CHANGELOG.md</code> con OpenAI</li>
+    <li>Test con <code>jest</code> su file JS</li>
+  </ul>
+
+  <h2>Revisione del codice con GPT</h2>
+  <p>Il file <code>scripts/chatgpt_review.py</code> invia in modo automatico il codice modificato all'API GPT-4 per generare una revisione con suggerimenti tecnici. Il risultato è stampato nei log e salvato in <code>.gpt-review/</code>.</p>
+
+  <h2>Changelog automatico</h2>
+  <p>Il file <code>scripts/generate_changelog.py</code> elenca i commit recenti e chiede a GPT di sintetizzarli in formato Markdown. Il risultato viene aggiunto a <code>CHANGELOG.md</code>.</p>
+
+  <h2>Testing</h2>
+  <p>Inizialmente i test erano basati su <code>jsdom</code>, ma poi sono stati refactorati in CommonJS per evitare dipendenze non compatibili con GitHub Actions.</p>
+
+  <pre><code>module.exports = function calcolaVolume(n) {
+  return Math.pow(n, 3);
+};</code></pre>
+
+  <p>Esempio test con Jest:</p>
+
+  <pre><code>const calcolaVolume = require('../scripts/main.js');
+
+test('calcola il volume correttamente', () => {
+  expect(calcolaVolume(5)).toBe(125);
+});</code></pre>
+
+  <h2>Repository GitHub</h2>
+  <p>Codice sorgente disponibile su <a href="https://github.com/MassimoDanieli/cubo-ai-pipeline" target="_blank">github.com/MassimoDanieli/cubo-ai-pipeline</a></p>
+
+  <p><a href="index.html">&larr; Torna alla homepage</a></p>
+
+</body>
+</html>
+
