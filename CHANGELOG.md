@@ -1,5 +1,9 @@
 # 📝 Changelog (generato automaticamente)
 
-### Changelog
+# Changelog
 
-- **Fix**: Risolto il problema che causava il malfunzionamento della pagina index con lo script di calcolo. (c9936e5)
+## [Unreleased]
+
+## [1.0.0] - 2021-10-15
+### Fixed
+- Fix: pagina index funzionante con script calcolo (cc52137)
