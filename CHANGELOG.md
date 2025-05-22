@@ -1,3 +1,5 @@
 # 📝 Changelog (generato automaticamente)
 
-- **52b1fda** Aggiornata la documentazione per preparare la struttura per GitHub Pages.
+## Changelog
+
+- Fix: Aggiornata la funzione calcolaEDisegna in JS per renderla compatibile con GitHub Pages. (commit: 340218b)
