@@ -2,15 +2,18 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Calcolo Volume Cubo</title>
+  <title>Volume del Cubo</title>
 </head>
 <body>
   <h1>Volume del Cubo</h1>
   <input id="lato" type="number" placeholder="Inserisci il lato" />
-  <button onclick="calcola()">Calcola</button>
+  <button onclick="calcolaEDisegna()">Calcola</button>
   <div id="risultato"></div>
 
-  <script src="scripts/main.js"></script>
+  <script type="module">
+    import { calcolaEDisegna } from './scripts/main.js';
+    window.calcolaEDisegna = calcolaEDisegna;
+  </script>
 </body>
 </html>
 

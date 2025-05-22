@@ -1,11 +1,12 @@
-// scripts/main.js
-function calcola() {
-  const lato = parseFloat(document.getElementById('lato').value);
-  if (isNaN(lato)) {
-    document.getElementById('risultato').innerHTML = 'Inserisci un numero valido';
-    return;
-  }
-  const volume = Math.pow(lato, 3);
-  document.getElementById('risultato').innerHTML = 'Il volume è: ' + volume;
+export function calcolaVolume(lato) {
+  const n = parseFloat(lato);
+  if (isNaN(n)) return 'Errore';
+  return `Il volume è: ${Math.pow(n, 3)}`;
+}
+
+export function calcolaEDisegna() {
+  const lato = document.getElementById('lato').value;
+  const output = calcolaVolume(lato);
+  document.getElementById('risultato').innerText = output;
 }
 
