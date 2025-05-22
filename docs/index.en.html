@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPT DevOps Demo – Cube Volume</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      line-height: 1.6;
+      padding: 2rem;
+      background: #f4f4f4;
+      color: #333;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #222;
+    }
+    input, button {
+      padding: 0.5rem;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+    }
+    .demo {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    }
+    #risultato {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .lang {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lang">
+    <a href="index.html">🇮🇹 Italiano</a> | <a href="index.en.html">🇬🇧 English</a>
+  </div>
+
+  <h1>GPT-powered DevOps Demo: Cube Volume Calculator</h1>
+
+  <p>This project demonstrates how to integrate DevOps automation and AI (OpenAI) even in a simple web app. It's designed as a portfolio-ready technical demo for interviews or documentation purposes.</p>
+
+  <h2>Interactive Demo</h2>
+  <div class="demo">
+    <label for="lato">Enter the length of the cube side:</label><br />
+    <input type="number" id="lato" placeholder="e.g. 5" />
+    <button onclick="calcolaEDisegna()">Calculate</button>
+    <div id="risultato"></div>
+  </div>
+
+  <p style="margin-top: 2rem;">
+    <a href="tech.en.html">Technical Details &rarr;</a>
+  </p>
+
+  <script src="./scripts/main.js"></script>
+</body>
+</html>
