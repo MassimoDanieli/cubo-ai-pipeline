@@ -1,3 +1,3 @@
 # 📝 Changelog (generato automaticamente)
 
-- **docs**: Preparata la struttura per GitHub Pages.
+- **52b1fda** Aggiornata la documentazione per preparare la struttura per GitHub Pages.
