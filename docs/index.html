@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Volume del Cubo</title>
+</head>
+<body>
+  <h1>Volume del Cubo</h1>
+  <input id="lato" type="number" placeholder="Inserisci il lato" />
+  <button onclick="calcolaEDisegna()">Calcola</button>
+  <div id="risultato"></div>
+
+  <script type="module">
+    import { calcolaEDisegna } from './scripts/main.js';
+    window.calcolaEDisegna = calcolaEDisegna;
+  </script>
+</body>
+</html>
+
