@@ -9,7 +9,7 @@ const fs = require('fs');
 const path = require('path');
 
 // Carica il contenuto dell'HTML
-const html = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf8');
+const html = fs.readFileSync(path.resolve(__dirname, '../index.html'), 'utf8');
 
 // Definisci il test
 describe('Calcolo del Volume di un Cubo', () => {
