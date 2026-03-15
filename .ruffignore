@@ -1,0 +1,3 @@
+# Ruff
+__pycache__/
+.env

@@ -2,6 +2,9 @@
 
 ![GPT Review](https://img.shields.io/github/actions/workflow/status/MassimoDanieli/cubo-ai-pipeline/review.yml?label=GPT%20Review&logo=openai)
 ![JS Tests](https://img.shields.io/github/actions/workflow/status/MassimoDanieli/cubo-ai-pipeline/test.yml?label=JS%20Tests&logo=jest)
+![Lint JS](https://img.shields.io/badge/lint-JS-informational?logo=eslint)
+![Lint Python](https://img.shields.io/badge/lint-Python-informational?logo=python)
+![Coverage](https://img.shields.io/badge/coverage-auto-informational?logo=jest)
 ![Changelog](https://img.shields.io/badge/Changelog-GPT%20Generated-blueviolet?style=flat)
 ![100% AI Pipeline](https://img.shields.io/badge/AI--Driven-DevOps%20Pipeline-brightgreen?logo=github)
 
@@ -21,7 +24,14 @@ Include:
 
 ---
 
-## ⚙️ Funzionalità DevOps AI
+
+## 🛠️ Setup locale
+
+1. Copia `.env.example` in `.env` e inserisci la tua OpenAI API Key.
+2. Installa dipendenze Node: `npm install`
+3. Installa dipendenze Python: `pip install -r requirements.txt`
+4. Lint JS: `npm run lint` — Lint Python: `ruff .`
+5. Test: `npm test` oppure `npx jest`
 
 ### 🔍 Code Review GPT
 Ogni PR analizza i file modificati (`.js`, `.html`, `.py`) con GPT-3.5.  

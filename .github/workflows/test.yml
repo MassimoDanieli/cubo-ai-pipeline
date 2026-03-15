@@ -1,3 +1,19 @@
+            - name: Setup Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: '3.11'
+
+            - name: Install Python dependencies
+              run: |
+                pip install -r requirements.txt
+                pip install openai
+
+            - name: Generate JS tests with GPT
+              env:
+                OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+              run: python3 scripts/generate_js_test.py
+      - name: Run Jest coverage
+        run: npx jest --coverage
 name: Run JS Tests
 
 on:
@@ -22,6 +38,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci || npm install
+
+      - name: Run ESLint
+        run: npx eslint .
 
       - name: Run Jest tests
         run: npx jest
