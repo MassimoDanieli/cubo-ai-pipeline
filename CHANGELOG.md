@@ -1,6 +1,3 @@
 # 📝 Changelog (generato automaticamente)
 
-### Changelog
-
-- **Documentazione**
-  - Aggiunta versione inglese della homepage e pagina tecnica. (commit: 718e7f0)
+- Merge pull request #4 from MassimoDanieli/chore/devops-lint-coverage-gpt (f9012b4)
