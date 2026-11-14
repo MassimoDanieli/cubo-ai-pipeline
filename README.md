@@ -1,68 +1,48 @@
 # 🧠 Cubo AI Pipeline
 
-![GPT Review](https://img.shields.io/github/actions/workflow/status/MassimoDanieli/cubo-ai-pipeline/review.yml?label=GPT%20Review&logo=openai)
-![JS Tests](https://img.shields.io/github/actions/workflow/status/MassimoDanieli/cubo-ai-pipeline/test.yml?label=JS%20Tests&logo=jest)
-![Lint JS](https://img.shields.io/badge/lint-JS-informational?logo=eslint)
-![Lint Python](https://img.shields.io/badge/lint-Python-informational?logo=python)
-![Coverage](https://img.shields.io/badge/coverage-auto-informational?logo=jest)
-![Changelog](https://img.shields.io/badge/Changelog-GPT%20Generated-blueviolet?style=flat)
-![100% AI Pipeline](https://img.shields.io/badge/AI--Driven-DevOps%20Pipeline-brightgreen?logo=github)
+![JS Tests](https://img.shields.io/github/actions/workflow/status/MassimoDanieli/cubo-ai-pipeline/test.yml?label=JS%20tests&logo=jest)
+![AI](https://img.shields.io/github/actions/workflow/status/MassimoDanieli/cubo-ai-pipeline/ai.yml?label=AI%20review&logo=githubactions)
 
----
+Una web app minuscola (il volume di un cubo) usata come banco di prova per una pipeline CI/CD con l'IA: review delle PR, proposte di test, changelog e un assistente agentico su richiesta.
 
-## 📋 Descrizione
+🌐 Demo: <https://massimodanieli.github.io/cubo-ai-pipeline/> · [Approfondimento tecnico](docs/tech.html)
 
-**Cubo AI Pipeline** è una demo completa di CI/CD guidata dall'intelligenza artificiale.
-Include:
+## La pipeline
 
-- ✅ **Web UI HTML** per calcolare il volume di un cubo
-- ✅ **Code review automatica** con ChatGPT
-- ✅ **Generazione test JS** con GPT su `index.html`
-- ✅ **Esecuzione test Jest in CI**
-- ✅ **Generazione automatica di `CHANGELOG.md`** via GPT
-- ✅ **File `.gpt-review/*.md` salvati e versionabili**
+| Workflow | Quando | Cosa fa |
+|---|---|---|
+| [`test.yml`](.github/workflows/test.yml) | push e PR | ESLint + Jest con coverage su Node 22 |
+| [`ai.yml`](.github/workflows/ai.yml) → review | ogni PR | review del **diff** con risultati strutturati (file, riga, gravità, fix); un solo commento aggiornato; blocca il merge solo su problemi *critical* |
+| [`ai.yml`](.github/workflows/ai.yml) → tests | ogni PR | propone file di test Jest per il codice cambiato, come commento e artifact |
+| [`ai.yml`](.github/workflows/ai.yml) → changelog | tag `v*` | voce di changelog dai commit dall'ultimo tag, proposta come PR |
+| [`claude.yml`](.github/workflows/claude.yml) | commento con `@claude` | Claude Code gira nel repo, legge i file, lancia i test e risponde o propone una correzione |
 
----
+I passi IA vengono dai workflow riutilizzabili di [ai-devops-starter-kit v2](https://github.com/MassimoDanieli/ai-devops-starter-kit), quindi il fornitore si cambia con un parametro (`provider: anthropic | openai | local`) senza toccare questo repo.
 
+### Configurazione
 
-## 🛠️ Setup locale
+Un secret: `ANTHROPIC_API_KEY`. Per `@claude` installa anche la [Claude GitHub App](https://github.com/apps/claude).
 
-1. Copia `.env.example` in `.env` e inserisci la tua OpenAI API Key.
-2. Installa dipendenze Node: `npm install`
-3. Installa dipendenze Python: `pip install -r requirements.txt`
-4. Lint JS: `npm run lint` — Lint Python: `ruff .`
-5. Test: `npm test` oppure `npx jest`
+Per usare OpenAI aggiungi in `ai.yml`:
 
-### 🔍 Code Review GPT
-Ogni PR analizza i file modificati (`.js`, `.html`, `.py`) con GPT-3.5.  
-Risultato salvato in `.gpt-review/review-*.md`.
+```yaml
+    with:
+      provider: openai
+      model: <id del modello>
+```
 
-### 🧪 Test JS generati da GPT
-GPT genera automaticamente test Jest per la UI HTML.  
-I test sono salvati in `__tests__/test_volume.js`.
-
-### 🧪 Esecuzione test automatica
-Ogni PR esegue `npx jest`. Se il test fallisce, la pipeline blocca il merge.
-
-### 🧠 Changelog GPT
-Ogni push su `main` genera un file `CHANGELOG.md` con gli ultimi commit descritti da GPT.
-
----
-
-## 🚀 Come eseguire localmente
+## Locale
 
 ```bash
-# Setup ambiente virtuale Python
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
+npm ci
+npm run lint
+npm test            # oppure: npm run coverage
+```
 
-# Setup npm
-npm install
+Il sito statico è in `docs/` (GitHub Pages).
 
-# Genera test JS via GPT
-python3 scripts/generate_js_test.py
+## Storia
 
-# Esegui test Jest
-npm test
+La v1 (maggio 2025) aveva tre script Python che chiamavano `gpt-3.5-turbo`: review file per file, generazione di test, changelog a ogni push su `main`. Il modello è stato spento da OpenAI il 23 ottobre 2026 e la pipeline si è fermata. Anche il workflow dei test era rotto (YAML non valido, ESLint senza ambiente Node/Jest, lockfile non allineato). Dettagli in [CHANGELOG.md](CHANGELOG.md).
 
+MIT © Massimo Danieli

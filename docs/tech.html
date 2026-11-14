@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Approfondimento Tecnico – Pipeline GPT</title>
+  <title>Approfondimento Tecnico – Pipeline IA</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -38,12 +38,12 @@
 </head>
 <body>
 
-  <h1>Approfondimento Tecnico – Pipeline GPT</h1>
+  <h1>Approfondimento Tecnico – Pipeline IA</h1>
 
   <p>Questa pagina descrive in dettaglio l'architettura, gli strumenti e le automazioni utilizzate nel progetto <strong>cubo-ai-pipeline</strong>.</p>
 
   <h2>Obiettivo</h2>
-  <p>Dimostrare l'uso di una pipeline DevOps intelligente con integrazione GPT, anche per una semplice webapp. L'intero processo è automatizzato: revisione, testing, changelog e deploy.</p>
+  <p>Dimostrare una pipeline DevOps con l'IA, anche per una webapp minima: review, proposte di test, changelog e deploy sono automatizzati.</p>
 
   <h2>Struttura del progetto</h2>
   <ul>
@@ -54,31 +54,40 @@
 
   <h2>Pipeline CI/CD</h2>
   <ul>
-    <li><strong>GitHub Actions</strong> attiva su PR e push</li>
-    <li>Code review automatica GPT su ogni PR</li>
-    <li>Generazione automatica del file <code>CHANGELOG.md</code> con OpenAI</li>
-    <li>Test con <code>jest</code> su file JS</li>
+    <li><strong>GitHub Actions</strong> su PR, push e tag</li>
+    <li>ESLint e Jest con coverage su ogni push e PR</li>
+    <li>Review IA del diff su ogni PR, con un solo commento aggiornato</li>
+    <li>Proposte di test Jest per il codice cambiato</li>
+    <li>Changelog generato su ogni tag <code>v*</code> e proposto come PR</li>
+    <li>Assistente <code>@claude</code> nei commenti di PR e issue</li>
   </ul>
 
-  <h2>Revisione del codice con GPT</h2>
-  <p>Il file <code>scripts/chatgpt_review.py</code> invia in modo automatico il codice modificato all'API GPT-4 per generare una revisione con suggerimenti tecnici. Il risultato è stampato nei log e salvato in <code>.gpt-review/</code>.</p>
+  <h2>Review con l'IA (v2, novembre 2026)</h2>
+  <p>I passi IA usano i workflow riutilizzabili di <a href="https://github.com/MassimoDanieli/ai-devops-starter-kit" target="_blank">ai-devops-starter-kit</a>. Il modello riceve il <em>diff</em> della PR con il contesto e restituisce risultati strutturati: file, riga, gravità, categoria e correzione proposta. Se non c'è niente da segnalare, non commenta. Il fornitore (Anthropic, OpenAI o un modello locale) si sceglie con un parametro.</p>
 
-  <h2>Changelog automatico</h2>
-  <p>Il file <code>scripts/generate_changelog.py</code> elenca i commit recenti e chiede a GPT di sintetizzarli in formato Markdown. Il risultato viene aggiunto a <code>CHANGELOG.md</code>.</p>
+  <h2>Assistente agentico</h2>
+  <p>Con <code>@claude</code> in un commento, l'action ufficiale <code>anthropics/claude-code-action</code> avvia Claude Code sul runner: legge il repository, esegue i test e risponde o propone una modifica.</p>
+
+  <h2>v1 (maggio 2025)</h2>
+  <p>La prima versione usava tre script Python con <code>gpt-3.5-turbo</code> (review file per file, test generati, changelog a ogni push). Il modello è stato spento da OpenAI il 23 ottobre 2026; gli script sono stati rimossi.</p>
 
   <h2>Testing</h2>
   <p>Inizialmente i test erano basati su <code>jsdom</code>, ma poi sono stati refactorati in CommonJS per evitare dipendenze non compatibili con GitHub Actions.</p>
 
-  <pre><code>module.exports = function calcolaVolume(n) {
-  return Math.pow(n, 3);
-};</code></pre>
+  <pre><code>function calcolaVolume(input) {
+  const lato = parseFloat(input);
+  if (isNaN(lato) || lato &lt; 0) return 'Errore';
+  return `Il volume è: ${Math.pow(lato, 3)}`;
+}
+
+module.exports = { calcolaVolume };</code></pre>
 
   <p>Esempio test con Jest:</p>
 
-  <pre><code>const calcolaVolume = require('../scripts/main.js');
+  <pre><code>const { calcolaVolume } = require('../scripts/main');
 
-test('calcola il volume correttamente', () => {
-  expect(calcolaVolume(5)).toBe(125);
+test('volume corretto per 3', () =&gt; {
+  expect(calcolaVolume('3')).toBe('Il volume è: 27');
 });</code></pre>
 
   <h2>Repository GitHub</h2>
