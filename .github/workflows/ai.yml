@@ -1,0 +1,41 @@
+# AI steps of the pipeline, provided by ai-devops-starter-kit v2.
+# Needs one repository secret: ANTHROPIC_API_KEY
+# (or OPENAI_API_KEY with `provider: openai` and a `model:`).
+name: AI
+
+on:
+  pull_request:
+  push:
+    tags: ["v*"]
+
+jobs:
+  review:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: MassimoDanieli/ai-devops-starter-kit/.github/workflows/ai-review.yml@main
+    with:
+      language: Italian
+      fail-on: critical
+    secrets: inherit
+
+  tests:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: MassimoDanieli/ai-devops-starter-kit/.github/workflows/ai-testgen.yml@main
+    with:
+      language: Italian
+    secrets: inherit
+
+  changelog:
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: MassimoDanieli/ai-devops-starter-kit/.github/workflows/ai-changelog.yml@main
+    with:
+      language: Italian
+    secrets: inherit

@@ -1,47 +1,28 @@
-            - name: Setup Python
-              uses: actions/setup-python@v5
-              with:
-                python-version: '3.11'
-
-            - name: Install Python dependencies
-              run: |
-                pip install -r requirements.txt
-                pip install openai
-
-            - name: Generate JS tests with GPT
-              env:
-                OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-              run: python3 scripts/generate_js_test.py
-      - name: Run Jest coverage
-        run: npx jest --coverage
-name: Run JS Tests
+name: JS Tests
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    paths:
-      - "__tests__/*.js"
-      - "**/*.html"
-      - "**/*.js"
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: "18"
+          node-version: "22"
+          cache: npm
 
-      - name: Install dependencies
-        run: npm ci || npm install
+      - run: npm ci
 
-      - name: Run ESLint
+      - name: ESLint
         run: npx eslint .
 
-      - name: Run Jest tests
-        run: npx jest
-
+      - name: Jest (with coverage)
+        run: npx jest --coverage

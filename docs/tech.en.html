@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Technical Overview – GPT Pipeline</title>
+  <title>Technical Overview – AI Pipeline</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -46,12 +46,12 @@
     <a href="tech.html">🇮🇹 Italiano</a> | <a href="tech.en.html">🇬🇧 English</a>
   </div>
 
-  <h1>Technical Overview – GPT Pipeline</h1>
+  <h1>Technical Overview – AI Pipeline</h1>
 
   <p>This page describes in detail the architecture, tools, and automation used in the <strong>cubo-ai-pipeline</strong> project.</p>
 
   <h2>Goal</h2>
-  <p>Demonstrate a smart DevOps pipeline integrating GPT, even for a simple static web app. Everything is automated: code review, changelog generation, testing and deploy.</p>
+  <p>Demonstrate a DevOps pipeline with AI, even for a minimal web app: review, test proposals, changelog and deploy are automated.</p>
 
   <h2>Project Structure</h2>
   <ul>
@@ -62,31 +62,40 @@
 
   <h2>CI/CD Pipeline</h2>
   <ul>
-    <li><strong>GitHub Actions</strong> triggered on push and PR</li>
-    <li>Automatic code review via GPT for each pull request</li>
-    <li>Automatic <code>CHANGELOG.md</code> generation with OpenAI</li>
-    <li>Unit tests with <code>jest</code></li>
+    <li><strong>GitHub Actions</strong> on PRs, pushes and tags</li>
+    <li>ESLint and Jest with coverage on every push and PR</li>
+    <li>AI review of the diff on every PR, as one comment updated in place</li>
+    <li>Jest test proposals for changed code</li>
+    <li>Changelog written on every <code>v*</code> tag and proposed as a PR</li>
+    <li><code>@claude</code> assistant in PR and issue comments</li>
   </ul>
 
-  <h2>Code Review with GPT</h2>
-  <p>The <code>scripts/chatgpt_review.py</code> script automatically sends modified code to the GPT-4 API and returns a technical review. The output is logged and saved in <code>.gpt-review/</code>.</p>
+  <h2>AI review (v2, November 2026)</h2>
+  <p>The AI steps use the reusable workflows from <a href="https://github.com/MassimoDanieli/ai-devops-starter-kit" target="_blank">ai-devops-starter-kit</a>. The model gets the PR <em>diff</em> with context and returns structured findings: file, line, severity, category and a proposed fix. When there is nothing worth flagging it stays quiet. The provider (Anthropic, OpenAI or a local model) is a single parameter.</p>
 
-  <h2>Changelog Generation</h2>
-  <p>The <code>scripts/generate_changelog.py</code> script lists recent commits and asks GPT to summarize them in Markdown format. Output is appended to <code>CHANGELOG.md</code>.</p>
+  <h2>Agentic assistant</h2>
+  <p>Mentioning <code>@claude</code> in a comment starts Claude Code on the runner via the official <code>anthropics/claude-code-action</code>: it reads the repository, runs the tests and answers or proposes a change.</p>
+
+  <h2>v1 (May 2025)</h2>
+  <p>The first version used three Python scripts calling <code>gpt-3.5-turbo</code> (file-by-file review, generated tests, changelog on every push). OpenAI shut that model down on 23 October 2026 and the scripts were removed.</p>
 
   <h2>Testing</h2>
   <p>Initially using <code>jsdom</code>, tests were then refactored to CommonJS to remove unnecessary dependencies and ensure GitHub Actions compatibility.</p>
 
-  <pre><code>module.exports = function calcolaVolume(n) {
-  return Math.pow(n, 3);
-};</code></pre>
+  <pre><code>function calcolaVolume(input) {
+  const lato = parseFloat(input);
+  if (isNaN(lato) || lato &lt; 0) return 'Errore';
+  return `Il volume è: ${Math.pow(lato, 3)}`;
+}
+
+module.exports = { calcolaVolume };</code></pre>
 
   <p>Example Jest test:</p>
 
-  <pre><code>const calcolaVolume = require('../scripts/main.js');
+  <pre><code>const { calcolaVolume } = require('../scripts/main');
 
-test('calculates cube volume correctly', () => {
-  expect(calcolaVolume(5)).toBe(125);
+test('volume corretto per 3', () =&gt; {
+  expect(calcolaVolume('3')).toBe('Il volume è: 27');
 });</code></pre>
 
   <h2>Source Code</h2>
